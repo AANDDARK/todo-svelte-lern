@@ -3,9 +3,9 @@ import { todos } from "../todos.svelte";
 
 let name = ''
 let text = ''
-const save = (event) => {
-    event.preventDefault();
+const save = () => {
     todos.update(item => [...item, {
+        id: 0 + item.length,
         name,
         text
     }])
@@ -13,15 +13,18 @@ const save = (event) => {
     name = '';
     text = '';
 }
-$inspect($todos)
+console.log($todos);
+
+const clear = () => {
+    todos.set([])
+}
 </script>
 
 
 <div>
-    <form on:submit={save}>
         <input bind:value={name} placeholder="Name" />
         <textarea bind:value={text} placeholder="Text"></textarea>
-        <button type="submit">Save</button>
-      </form>   
+        <button on:click={save}>Save</button>
+      <button on:click={clear}>clear</button>  
 </div>
 
